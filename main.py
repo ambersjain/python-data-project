@@ -17,9 +17,12 @@ def presentDataSummary(data):
     print (stats)
 
 
-def sqlInsert():
-    pass
-
+def sqlInsert(SOURCE):
+    sql_texts = []
+    for index, row in SOURCE.iterrows():
+        sql_texts.append(
+            'INSERT INTO ' + 'table' + '(' + str(', '.join(SOURCE.columns)) + ') VALUES ' + str(tuple(row.values)))
+    print('\n\n'.join(sql_texts))
 
 def main():
     fileread = False
@@ -51,7 +54,7 @@ def main():
                     presentDataSummary(data)
                 elif option == '3':
                     print("Generate a SQL insert statement for all rows in the input......")
-                    sqlInsert()
+                    sqlInsert(data)
                 elif option == '4':
                     correct_option_selected = True
                     print("Thanks for using the app.")
