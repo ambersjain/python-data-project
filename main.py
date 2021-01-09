@@ -12,8 +12,9 @@ def convertToJson(data):
     print ("File is generated and stored in the directory")
 
 
-def presentDataSummary():
-    pass
+def presentDataSummary(data):
+    stats = data.describe()
+    print (stats)
 
 
 def sqlInsert():
@@ -41,13 +42,13 @@ def main():
                 print("2. Check Data Summary")
                 print("3. Generate a SQL insert statement for all rows in the input")
                 print("4. Exit")
-                option = input("Select 1, 2 or 3 from above: ")
+                option = input("Choose 1, 2, 3 or 4 from above: ")
                 if option == '1':
                     print("Converting CSV to JSON......")
                     convertToJson(data)
                 elif option == '2':
                     print("Presenting data summary......")
-                    presentDataSummary()
+                    presentDataSummary(data)
                 elif option == '3':
                     print("Generate a SQL insert statement for all rows in the input......")
                     sqlInsert()
