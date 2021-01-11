@@ -1,8 +1,4 @@
-import os
-import csv
-import json
 import pandas as pd
-from collections import OrderedDict
 
 
 def convertToJson(data):
@@ -34,14 +30,16 @@ def presentDataSummary(data):
     print (geo_region_top5)
     print ("========================DATA SUMMARY END==========================")
 
-def sqlInsert(SOURCE):
+
+def sqlInsert(data):
     sql_texts = []
-    for index, row in SOURCE.iterrows():
+    for index, row in data.iterrows():
         sql_texts.append(
-            'INSERT INTO ' + 'table' + '(' + str(', '.join(SOURCE.columns)) + ') VALUES ' + str(tuple(row.values)))
+            'INSERT INTO ' + 'table' + '(' + str(', '.join(data.columns)) + ') VALUES ' + str(tuple(row.values)))
     print('\n\n'.join(sql_texts))
 
-def main():
+
+def menu():
     fileread = False
     while not fileread:
         try:
@@ -59,7 +57,7 @@ def main():
                 print("===================MENU========================")
                 print("1. Convert CSV to JSON")
                 print("2. Check Data Summary")
-                print("3. Generat a SQL insert statement for all rows in the input")
+                print("3. Generate a SQL insert statement for all rows in the input")
                 print("4. Exit")
                 option = input("Choose 1, 2, 3 or 4 from above: ")
                 if option == '1':
@@ -79,4 +77,4 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    menu()

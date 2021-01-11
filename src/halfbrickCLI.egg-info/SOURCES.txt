@@ -1,0 +1,6 @@
+setup.py
+src/index.py
+src/halfbrickCLI.egg-info/PKG-INFO
+src/halfbrickCLI.egg-info/SOURCES.txt
+src/halfbrickCLI.egg-info/dependency_links.txt
+src/halfbrickCLI.egg-info/top_level.txt
