@@ -13,9 +13,26 @@ def convertToJson(data):
 
 
 def presentDataSummary(data):
-    stats = data.describe()
-    print (stats)
-
+    # Get % of people with Google Play and iOS
+    # Get % of people with phone brand
+    # Get % of device cat
+    os_type = data['sku'].value_counts(normalize=True) * 100
+    device_model_counts_top5 = data['device_model_name'].value_counts()[0:5]
+    install_source_top5 = data['install_source'].value_counts()[0:5]
+    geo_region_top5 = data['geo_region'].value_counts()[0:5]
+    print ("========================DATA SUMMARY============================")
+    print ("=> The OS type percentage for the users")
+    print (os_type)
+    print ("================================================================")
+    print ("=> Top 5 device models used for the app")
+    print (device_model_counts_top5)
+    print ("================================================================")
+    print ("=> Top 5 install sources used for the app")
+    print (install_source_top5)
+    print ("================================================================")
+    print ("=> Where do the users install the app from? (Top 5)")
+    print (geo_region_top5)
+    print ("========================DATA SUMMARY END==========================")
 
 def sqlInsert(SOURCE):
     sql_texts = []
@@ -30,8 +47,6 @@ def main():
         try:
             print("===================Load the CSV file===================")
             filename = input("Type in the name of the file along with extension: ")
-            # f = open(filename)
-            # data = list(csv.reader(f))
             data = pd.read_csv(filename)
             print("===================CSV file loaded=========================")
             fileread = True
@@ -41,9 +56,10 @@ def main():
         else:
             correct_option_selected = False
             while not correct_option_selected:
+                print("===================MENU========================")
                 print("1. Convert CSV to JSON")
                 print("2. Check Data Summary")
-                print("3. Generate a SQL insert statement for all rows in the input")
+                print("3. Generat a SQL insert statement for all rows in the input")
                 print("4. Exit")
                 option = input("Choose 1, 2, 3 or 4 from above: ")
                 if option == '1':
@@ -53,7 +69,7 @@ def main():
                     print("Presenting data summary......")
                     presentDataSummary(data)
                 elif option == '3':
-                    print("Generate a SQL insert statement for all rows in the input......")
+                    print("Generating a SQL insert statement for all rows in the input......Please allow 5 seconds")
                     sqlInsert(data)
                 elif option == '4':
                     correct_option_selected = True
